@@ -1,0 +1,42 @@
+/* src/index.css */
+@import "tailwindcss";
+
+/* 1 peso (400). Si tienes otros pesos, duplica el bloque con font-weight distinto */
+@font-face {
+  font-family: "Bergstena Script";
+  src: url("/fonts/BergstenaScript.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bergstena Decorated";
+  src: url("/fonts/BergstenaDecorated.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* Exponerlas como utilidades de Tailwind v4 */
+@theme {
+  --font-berg-script: "Bergstena Script", cursive;
+  --font-berg-deco: "Bergstena Decorated", cursive;
+
+  /* Si quieres que font-hand ahora apunte a una de estas: */
+  --font-hand: "Bergstena Script", cursive;
+}
+
+:root{
+  --color-bg:#fffaf5;
+  --color-ink:#442f2b;
+  --color-brand:#7a3e2e;
+  --shadow-soft:0 10px 30px rgba(0,0,0,.08);
+}
+
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden;
+}
+body { margin: 0; }
