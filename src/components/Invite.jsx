@@ -26,7 +26,7 @@ export default function Invite() {
         {/* Título: le quito espacio arriba */}
         <motion.h1
           {...fadeIn}
-          className="font-hand text-center mt-[-25%] leading-tight text-[clamp(28px,6vw,60px)] text-[var(--color-brand)] -mt-1"
+          className="font-hand text-center mt-[-25%] leading-tight text-[60px] text-[var(--color-brand)] -mt-1"
         >
           ¡Mis papis se casan!
         </motion.h1>
@@ -65,49 +65,52 @@ export default function Invite() {
         <div id="namesHero" className="relative max-w-[1000px] mx-auto my-10">
             {/* Ángel (izquierda, escalonado) */}
             <motion.h2
-            {...fadeIn}
-            className="
+              {...fadeIn}
+              className="
                 font-hand text-[var(--color-brand)]
-                text-[clamp(44px,9vw,120px)]
+                text-[70px]
                 leading-none
                 text-left
-                -ml-2 sm:-ml-4
-            "
+                -ml-2 sm:-ml-[-20%]
+                mb-2 sm:mb-0        /* + espacio bajo en móvil */
+              "
             >
-            Ángel
+              Ángel
             </motion.h2>
 
             {/* Ampersand centrado y grande */}
             <motion.div
-            {...fadeIn}
-            className="
+              {...fadeIn}
+              className="
                 font-hand text-[var(--color-brand)]
-                text-[clamp(64px,12vw,160px)]
+                text-[70px]
                 leading-none
                 absolute left-1/2 -translate-x-1/2
-                top-[8%] sm:top-[7%]
+                py-6
+                top-[9%] sm:top-[10%]  /* baja un poquito en móvil para despegarlo */
                 rotate-[-6deg]
                 pointer-events-none select-none
-            "
-            aria-hidden="true"
+              "
+              aria-hidden="true"
             >
-            &
+              &
             </motion.div>
 
             {/* Mirely (derecha, un poco más abajo) */}
             <motion.h2
-            {...fadeIn}
-            className="
+              {...fadeIn}
+              className="
                 font-hand text-[var(--color-brand)]
-                text-[clamp(44px,9vw,120px)]
+                text-[70px]
                 leading-none
                 text-right
-                mt-3 sm:mt-4
-                mr-2 sm:mr-4
-            "
+                mt-6 sm:mt-4         /* un poco más de margen arriba en móvil */
+                mr-2 sm:mr-[20%]
+              "
             >
-            Mirely
+              Mirely
             </motion.h2>
+
 
             {/* Flor izquierda bajo "Ángel" */}
             <motion.img
@@ -162,7 +165,7 @@ export default function Invite() {
         />
 
         {/* Texto corto/poético debajo */}
-        <p className="mt-[-20%] text-center max-w-[780px] mx-auto text-[var(--color-brand)]/80 italic leading-relaxed font-hand md:text-5xl text-3xl">
+        <p className="mt-[-20%] text-center max-w-[780px] mx-auto text-[var(--color-brand)]/80 italic leading-relaxed md:text-3xl text-l">
             En este día en que dos almas se hacen una, agradecemos a la vida
             el regalo de su presencia para celebrar nuestra unión.
         </p>
@@ -173,7 +176,7 @@ export default function Invite() {
         <motion.h2
           {...fadeIn}
           className="font-hand text-[var(--color-brand)] text-center
-                    text-[clamp(40px,8vw,90px)] top-[6%]">
+                    text-[70px] top-[6%]">
           Noviembre
         </motion.h2>
         <motion.img
@@ -231,7 +234,7 @@ export default function Invite() {
           src="/img/flor1.png"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none select-none absolute -top-25 left-6 w-12 sm:w-50 opacity-90"
+          className="pointer-events-none select-none absolute -top-10 left-6 w-20 opacity-90"
         />
 
         {/* Ícono + título */}
@@ -241,7 +244,7 @@ export default function Invite() {
             alt=""
             className="w-15 h-15 mb-1"
           />
-          <h3 className="font-hand text-[75px] leading-none text-[var(--color-brand)]">
+          <h3 className="font-hand text-[70px] leading-none text-[var(--color-brand)]">
             Bosque pino
           </h3>
           <p className="text-[12px] italic text-[var(--color-ink)]/70 -mt-1 pt-7">
@@ -251,7 +254,7 @@ export default function Invite() {
 
 
         {/* Botón */}
-        <div className="relative mt-3 flex justify-center">
+        <div className="relative mt-3 flex justify-center z-10">
           <a
             href="https://maps.app.goo.gl/gMgXumkYpEoXaheC6"
             target="_blank"
@@ -275,7 +278,7 @@ export default function Invite() {
 
       {/* ====================== CÓDIGO DE VESTIMENTA ====================== */}
       <section className="mt-[-20%] text-center">
-        <h3 className="font-hand text-[clamp(26px,5vw,42px)] text-[var(--color-brand)]">
+        <h3 className="font-hand text-[var(--color-brand)] text-center leading-[0.9] text-[70px]">
           Código de vestimenta
         </h3>
 
@@ -295,8 +298,7 @@ export default function Invite() {
         </div>
       </section>
 
-      {/* ====================== REGALO DE SOBRE ====================== */}
-      <section className="relative mt-14 text-center">
+      <section className="relative mt-[-15%] text-center">
         {/* Textos guía */}
         <p className="max-w-[700px] mx-auto text-[var(--color-ink)]/80 italic">
           Traje para caballeros y
@@ -313,7 +315,7 @@ export default function Invite() {
         />
 
         {/* Textos guía */}
-        <p className="max-w-[700px] mx-auto text-[var(--color-ink)]/80 italic">
+        <p className="pb-5 max-w-[700px] mx-auto text-[var(--color-ink)]/80 italic">
           Por sí necesitas un poco de inspiración al elegir tu atuendo, te dejamos nuestra paleta de colores
         </p>
 
@@ -325,36 +327,27 @@ export default function Invite() {
           className="mx-auto w-[85%] sm:w-[60%] md:w-[520px] mt-2"
           loading="lazy"
         />
-
-
+        {/* Flor centrada arriba de la paleta */}
+        <motion.img
+          {...fadeIn}
+          src="/img/flor2.png"
+          alt=""
+          aria-hidden="true"
+          className="mx-auto w-[72px] sm:w-[88px] mt-3 pointer-events-none select-none"
+        />
+      </section>
+      {/* ====================== REGALO DE SOBRE ====================== */}
+      <section className="mt-2">
         {/* Título */}
         <motion.h2
           {...fadeIn}
-          className="font-hand text-[clamp(30px,8vw,64px)] text-[var(--color-brand)] mt-8"
+          className="font-hand text-[var(--color-brand)] text-center leading-[0.9] text-[70px]"
         >
           Regalo de Sobre
         </motion.h2>
 
         {/* Marco decorativo + sobre */}
         <div className="relative mx-auto mt-5 w-[92%] sm:w-[80%] md:w-[700px]">
-          {/* Ramillete superior-izquierdo */}
-          <motion.img
-            {...fadeIn}
-            src="/img/flores1.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute -left-2 sm:-left-6 -top-14 sm:-top-16 w-[34%] sm:w-[30%] rotate-[-10deg] pointer-events-none select-none"
-          />
-
-          {/* Ramillete inferior-derecho (mismo PNG girado/opuesto con flor2 si lo prefieres) */}
-          <motion.img
-            {...fadeIn}
-            src="/img/flores1.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute -right-3 sm:-right-6 -bottom-16 sm:-bottom-20 w-[36%] sm:w-[32%] rotate-[12deg] pointer-events-none select-none"
-            style={{ transformOrigin: "center" }}
-          />
 
           {/* Sobre (ilustración principal) */}
           <motion.img
@@ -367,10 +360,82 @@ export default function Invite() {
         </div>
 
         {/* Texto final */}
-        <p className="max-w-[780px] mx-auto mt-6 text-[var(--color-ink)]/80 italic px-4">
+        <p className="max-w-[780px] mx-auto mt-6 text-[var(--color-ink)]/80 italic px-4 text-center">
           Su compañía es el regalo más valioso que podemos recibir, pero si desean
           obsequiarnos algo, un sobre sería el mejor detalle.
         </p>
+      </section>
+
+      {/* ====================== NO NIÑOS ====================== */}
+      <section id="no-ninos" className="relative sm:mt-[-8%]">
+        {/* Ramillete superior centrado */}
+        <motion.img
+          {...fadeIn}
+          src="/img/flores1.png"
+          alt=""
+          aria-hidden="true"
+          className="rotate-130 pointer-events-none select-none mx-auto w-[68%] sm:w-[480px] -mb-2"
+          loading="lazy"
+        />
+
+        {/* Flor suelta izquierda */}
+        <motion.img
+          {...fadeIn}
+          src="/img/flor1.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute left-6 sm:left-10 top-16 sm:top-20 w-[70px] sm:w-[88px]"
+          loading="lazy"
+        />
+
+        {/* Flor suelta derecha */}
+        <motion.img
+          {...fadeIn}
+          src="/img/flor2.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute right-6 sm:right-10 top-[22%] sm:top-[18%] w-[70px] sm:w-[88px]"
+          loading="lazy"
+        />
+
+        {/* Arte principal: círculo con texto */}
+        <motion.img
+          {...fadeIn}
+          src="/img/yue_letra.png"
+          alt="Amamos a los pequeños, pero esta ocasión es solo para adultos"
+          className="block mx-auto w-[80%] sm:w-[70%] md:w-[60%] mt-[-25%]"
+          loading="lazy"
+        />
+
+        {/* Flor suelta inferior izquierda */}
+        <motion.img
+          {...fadeIn}
+          src="/img/flor1.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute left-8 sm:left-14 bottom-[54px] sm:bottom-[72px] w-[76px] sm:w-[92px]"
+          loading="lazy"
+        />
+
+        {/* Flor suelta inferior derecha */}
+        <motion.img
+          {...fadeIn}
+          src="/img/flor2.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute right-8 sm:right-14 bottom-[72px] sm:bottom-[92px] w-[76px] sm:w-[92px]"
+          loading="lazy"
+        />
+
+        {/* Guirnalda / franja floral inferior */}
+        <motion.img
+          {...fadeIn}
+          src="/img/Flores_centro.png"
+          alt=""
+          aria-hidden="true"
+          className="rotate-270 pointer-events-none select-none mx-auto sm:mt-[-15%] w-[72%] sm:w-[520px]"
+          loading="lazy"
+        />
       </section>
 
 
