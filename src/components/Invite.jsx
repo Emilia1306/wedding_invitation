@@ -1,5 +1,7 @@
 // src/components/Invite.jsx
 import { motion } from "framer-motion";
+import RsvpModal from "./RsvpModal.jsx";
+import { useMemo, useState } from "react";
 
 const fadeIn = {
   initial: { opacity: 0, y: 10 },
@@ -8,13 +10,30 @@ const fadeIn = {
   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
 };
 
-export default function Invite() {
+
+export default function Invite({
+    // opcionales por props
+    defaultAllowed = 2,       // pases por defecto
+    scriptUrl = ""            // URL de Apps Script (paso 3)
+  }) {
+    const [rsvpOpen, setRsvpOpen] = useState(false);
+
+  // Lee parámetros de la URL:  ?i=TOKEN&pases=2
+  const { token, allowedFromUrl } = useMemo(() => {
+    const sp = new URLSearchParams(window.location.search);
+    return {
+      token: sp.get("i") || null,
+      allowedFromUrl: Number(sp.get("pases")) || null,
+    };
+  }, []);
+
+  // prioridad: URL > prop por defecto
+  const allowed = allowedFromUrl ?? defaultAllowed;
   return (
     <main className="max-w-[1000px] mx-auto px-4 pb-16">
       {/* ====================== HERO / CABECERA ====================== */}
-      {/* Subo todo el héroe un pelín */}
       <section className="relative pt-2 -mt-2">
-        {/* Arreglo floral superior — respetando rotate-130 */}
+        {/* Arreglo floral superior*/}
         <motion.img
           {...fadeIn}
           src="/img/flores1.png"
@@ -23,7 +42,7 @@ export default function Invite() {
           loading="eager"
         />
 
-        {/* Título: le quito espacio arriba */}
+        {/* Título*/}
         <motion.h1
           {...fadeIn}
           className="font-hand text-center mt-[-25%] leading-tight text-[60px] text-[var(--color-brand)] -mt-1"
@@ -31,7 +50,7 @@ export default function Invite() {
           ¡Mis papis se casan!
         </motion.h1>
 
-        {/* Flores sueltas izq/der — subo un poco su posición */}
+        {/* Flores sueltas izq/der*/}
         <motion.img
           {...fadeIn}
           src="/img/flor1.png"
@@ -59,11 +78,11 @@ export default function Invite() {
         </div>
       </section>
 
-      {/* ============== NOMBRES + SOBRE CON FOTOS (separado en 2 divs) ============== */}
+      {/* ============== NOMBRES + SOBRE CON FOTOS ============== */}
         <section className="relative mt-10">
         {/* 1) Nombres + flores */}
         <div id="namesHero" className="relative max-w-[1000px] mx-auto my-10">
-            {/* Ángel (izquierda, escalonado) */}
+            {/* Ángel */}
             <motion.h2
               {...fadeIn}
               className="
@@ -78,7 +97,7 @@ export default function Invite() {
               Ángel
             </motion.h2>
 
-            {/* Ampersand centrado y grande */}
+            {/* Ampersand */}
             <motion.div
               {...fadeIn}
               className="
@@ -96,7 +115,7 @@ export default function Invite() {
               &
             </motion.div>
 
-            {/* Mirely (derecha, un poco más abajo) */}
+            {/* Mirely */}
             <motion.h2
               {...fadeIn}
               className="
@@ -112,7 +131,7 @@ export default function Invite() {
             </motion.h2>
 
 
-            {/* Flor izquierda bajo "Ángel" */}
+            {/* Flor izquierda */}
             <motion.img
             {...fadeIn}
             src="/img/flor1.png"
@@ -129,7 +148,7 @@ export default function Invite() {
             />
         </div>
 
-        {/* 2) Solo el sobre con fotos */}
+        {/* 2) Sobre con fotos */}
         <div
             id="envelopeBlock"
             className="relative mx-auto w-[92%] sm:w-[80%] md:w-[64%] -mt-2 sm:-mt-4"
@@ -144,10 +163,10 @@ export default function Invite() {
         </div>
         </section>
 
-        {/* ====================== FOTO + FLORES (sección vertical) ====================== */}
+        {/* ====================== FOTO + FLORES ====================== */}
         <section className="relative mt-14">
 
-        {/* Foto grande con borde rasgado */}
+        {/* Foto */}
         <motion.img
             {...fadeIn}
             src="/img/foto_novios.svg"
@@ -156,7 +175,7 @@ export default function Invite() {
             loading="lazy"
         />
 
-        {/* Divisor floral centrado debajo de la foto */}
+        {/* Divisor floral */}
         <img
             src="/img/Flores_centro.png"
             alt=""
@@ -164,7 +183,7 @@ export default function Invite() {
             className="rotate-270 pointer-events-none select-none block mx-auto -mt-6 w-[62%] max-w-[520px] mt-[-53%]"
         />
 
-        {/* Texto corto/poético debajo */}
+        {/* Texto */}
         <p className="mt-[-20%] text-center max-w-[780px] mx-auto text-[var(--color-brand)]/80 italic leading-relaxed md:text-3xl text-l">
             En este día en que dos almas se hacen una, agradecemos a la vida
             el regalo de su presencia para celebrar nuestra unión.
@@ -187,7 +206,7 @@ export default function Invite() {
           loading="eager"
         />
 
-        {/* Flores sueltas decorativas */}
+        {/* Flores sueltas */}
         <motion.img
           {...fadeIn}
           src="/img/flor2.png"
@@ -217,7 +236,7 @@ export default function Invite() {
           loading="lazy"
         />
 
-        {/* Flor derecha (a la altura del panel) */}
+        {/* Flor derecha*/}
         <motion.img
           {...fadeIn}
           src="/img/flor1.png"
@@ -229,7 +248,7 @@ export default function Invite() {
       </section>
       {/* ====================== UBICACIÓN ====================== */}
       <section className="relative mt-10 text-center">
-        {/* flor suelta arriba-izquierda */}
+        {/* flor arriba-izquierda */}
         <img
           src="/img/flor1.png"
           alt=""
@@ -287,7 +306,7 @@ export default function Invite() {
           Un toque de elegancia para una noche inolvidable
         </p>
 
-        {/* Ilustración / guía */}
+        {/* Guía vestimenta */}
         <div className="mt-6">
           <img
             src="/img/codigo_vestimenta.svg"
@@ -299,13 +318,13 @@ export default function Invite() {
       </section>
 
       <section className="relative mt-[-15%] text-center">
-        {/* Textos guía */}
+        {/* Texto */}
         <p className="max-w-[700px] mx-auto text-[var(--color-ink)]/80 italic">
           Traje para caballeros y
           <br className="sm:hidden" /> vestido largo o cóctel para damas (no blanco, no terracota)
         </p>
 
-        {/* Flor centrada arriba de la paleta */}
+        {/* Flor centro */}
         <motion.img
           {...fadeIn}
           src="/img/flor1.png"
@@ -314,7 +333,7 @@ export default function Invite() {
           className="mx-auto w-[72px] sm:w-[88px] mt-3 pointer-events-none select-none"
         />
 
-        {/* Textos guía */}
+        {/* Textos */}
         <p className="pb-5 max-w-[700px] mx-auto text-[var(--color-ink)]/80 italic">
           Por sí necesitas un poco de inspiración al elegir tu atuendo, te dejamos nuestra paleta de colores
         </p>
@@ -327,7 +346,7 @@ export default function Invite() {
           className="mx-auto w-[85%] sm:w-[60%] md:w-[520px] mt-2"
           loading="lazy"
         />
-        {/* Flor centrada arriba de la paleta */}
+        {/* Flor centrada arriba */}
         <motion.img
           {...fadeIn}
           src="/img/flor2.png"
@@ -346,10 +365,10 @@ export default function Invite() {
           Regalo de Sobre
         </motion.h2>
 
-        {/* Marco decorativo + sobre */}
+        {/* sobre */}
         <div className="relative mx-auto mt-5 w-[92%] sm:w-[80%] md:w-[700px]">
 
-          {/* Sobre (ilustración principal) */}
+          {/* Sobre */}
           <motion.img
             {...fadeIn}
             src="/img/regalo_sobre.svg"
@@ -368,7 +387,7 @@ export default function Invite() {
 
       {/* ====================== NO NIÑOS ====================== */}
       <section id="no-ninos" className="relative sm:mt-[-8%]">
-        {/* Ramillete superior centrado */}
+        {/* Separador */}
         <motion.img
           {...fadeIn}
           src="/img/flores1.png"
@@ -398,7 +417,7 @@ export default function Invite() {
           loading="lazy"
         />
 
-        {/* Arte principal: círculo con texto */}
+        {/* Yue no niños */}
         <motion.img
           {...fadeIn}
           src="/img/yue_letra.png"
@@ -413,7 +432,7 @@ export default function Invite() {
           src="/img/flor1.png"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none select-none absolute left-8 sm:left-14 bottom-[54px] sm:bottom-[72px] w-[76px] sm:w-[92px]"
+          className="pointer-events-none select-none absolute left-8 sm:left-14 bottom-[54px] sm:bottom-[72px] sm:w-[15%]"
           loading="lazy"
         />
 
@@ -423,20 +442,82 @@ export default function Invite() {
           src="/img/flor2.png"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none select-none absolute right-8 sm:right-14 bottom-[72px] sm:bottom-[92px] w-[76px] sm:w-[92px]"
+          className="pointer-events-none select-none absolute right-8 sm:right-14 bottom-[72px] sm:bottom-[30px] sm:w-[20%]"
           loading="lazy"
         />
 
-        {/* Guirnalda / franja floral inferior */}
+        {/* Guirnalda */}
         <motion.img
           {...fadeIn}
           src="/img/Flores_centro.png"
           alt=""
           aria-hidden="true"
-          className="rotate-270 pointer-events-none select-none mx-auto sm:mt-[-15%] w-[72%] sm:w-[520px]"
+          className="rotate-270 pointer-events-none select-none mx-auto sm:mt-[-15%] w-[72%] sm:w-[50%]"
           loading="lazy"
         />
       </section>
+
+      {/* ====================== CONFIRMACIÓN / RSVP ====================== */}
+      <section id="rsvp" className="relative sm:mt-[-20%]">
+        {/* icono circular arriba */}
+        <div className="flex justify-center">
+          <img
+            src="/img/icono_confirmacion.svg"
+            alt=""
+            aria-hidden="true"
+            className="w-10 h-10 sm:w-12 sm:h-12 mb-3"
+          />
+        </div>
+
+        {/* título */}
+        <motion.h2
+          {...fadeIn}
+          className="font-hand text-center text-[clamp(28px,6.5vw,56px)] text-[var(--color-brand)]"
+        >
+          Confirme su asistencia
+        </motion.h2>
+
+        {/* subtítulos finos */}
+        <p className="text-center text-[var(--color-ink)]/70 italic -mt-1">
+          Su presencia hará más especial este día.
+        </p>
+        <p className="text-center text-[var(--color-ink)]/60 text-sm">
+          Les agradeceremos confirmar su asistencia antes del
+        </p>
+
+        {/* fecha */}
+        <motion.p
+          {...fadeIn}
+          className=" text-center text-2xl text-[var(--color-brand)] mt-1"
+        >
+          15/11/2025
+        </motion.p>
+
+        {/* botón */}
+        <div className="mt-4 flex justify-center">
+          <button
+            onClick={() => setRsvpOpen(true)}
+            className="rounded-full px-6 py-2.5 bg-[var(--color-brand)] text-white shadow-[var(--shadow-soft)] font-hand text-[clamp(18px,5vw,28px)] focus:outline-none focus:ring-2 focus:ring-[var(--color-brand)]/40"
+            type="button"
+          >
+            Confirma aquí
+          </button>
+        </div>
+
+        {/* frase final */}
+        <p className="text-center mt-6 font-hand text-[clamp(20px,5.5vw,34px)] text-[var(--color-brand)]/90">
+          Esperamos contar con tu presencia
+        </p>
+      </section>
+
+      {/* Modal de RSVP */}
+      <RsvpModal
+        open={rsvpOpen}
+        onClose={() => setRsvpOpen(false)}
+        allowed={allowed}      // límite de personas para ESTA invitación
+        token={token}          // token único (de la URL o null)
+        endpoint={scriptUrl}   // URL de Apps Script
+      />
 
 
     </main>

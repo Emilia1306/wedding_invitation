@@ -32,7 +32,10 @@ export default function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Invite />
+            <Invite
+              defaultAllowed={2}
+              scriptUrl={import.meta.env.VITE_APPS_SCRIPT_URL}
+            />
           </motion.div>
         )}
       </AnimatePresence>
