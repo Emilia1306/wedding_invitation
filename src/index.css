@@ -33,21 +33,18 @@
 
 :root{
   --color-bg:#fffaf5;
-  --color-ink:#442f2b;
-  --color-brand:#7a3e2e;
+  --color-ink:#9B4319;
+  --color-brand:#9B4319;
   --shadow-soft:0 10px 30px rgba(0,0,0,.08);
 }
 
-/* Fondo acuarela centrado y repetido verticalmente */
-.bg-watercolor {
-  /* ruta desde /public */
-  background-image: url("/img/fondo.jpg");
-  background-repeat: repeat-y;      /* SOLO vertical */
-  background-position: top center;  /* centrado */
-  /* Ancho responsivo del motivo: ocupa la “franja” central */
+.bg-watercolor{
+  background-image: url("/img/fondodif.png");
+  background-repeat: repeat-y;
+  background-position: top center;
   background-size: clamp(640px, 90vw, 1200px) auto;
-  /* (opcional) suaviza el scroll en móviles con blur/backdrop */
   background-attachment: scroll;
+  background-color: var(--color-bg);
 }
 
 
