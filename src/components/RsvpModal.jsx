@@ -155,7 +155,7 @@ export default function RsvpModal({
               value={note}
               onChange={(e) => setNote(e.target.value)}
               className="w-full rounded-lg border border-black/10 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-brand)]/30"
-              placeholder="Alergias, comentarios, etc."
+              placeholder="Tu mensaje especial para esta nueva etapa."
             />
           </div>
 
