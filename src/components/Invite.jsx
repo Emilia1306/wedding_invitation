@@ -21,6 +21,35 @@ export default function Invite({
   const [toastMsg, setToastMsg] = useState("");
   const [toastVariant, setToastVariant] = useState("success");
 
+  // —— Añadir ESTO ——
+
+  // flags para mostrar “Copiado”
+  const [copied1, setCopied1] = useState(false);
+  const [copied2, setCopied2] = useState(false);
+
+  // copiar al portapapeles (con fallback)
+  async function copyToClipboard(text, setFlag) {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(String(text));
+      } else {
+        // fallback muy básico
+        const ta = document.createElement("textarea");
+        ta.value = String(text);
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      setFlag(true);
+      setTimeout(() => setFlag(false), 1800);
+    } catch (err) {
+      console.error("No se pudo copiar:", err);
+      setFlag(false);
+    }
+  }
+
+
   // Lee parámetros de la URL:  ?i=TOKEN&pases=2
   const { token, allowedFromUrl } = useMemo(() => {
     const sp = new URLSearchParams(window.location.search);
@@ -405,17 +434,90 @@ export default function Invite({
         </p>
       </section>
 
-      {/* ====================== CUENTAS BANCARIAS ====================== */}
-      <section className="relative mt-10 sm:mt-14 text-center">
-        <motion.img
-          {...fadeIn}
-          src="/img/cuentas.png"
-          alt="Cuentas bancarias para contribución"
-          className="mx-auto w-full sm:w-[85%] md:w-[70%] max-w-[960px]
-                    drop-shadow-[0_18px_40px_rgba(0,0,0,.10)]"
-          loading="lazy"
-        />
+      {/* ====================== CUENTAS BANCARIAS (SOLO TEXTO) ====================== */}
+      <section className="relative mt-12 sm:mt-16">
+
+        <p className="max-w-[900px] font-quicksand font-medium mx-auto text-center text-[var(--color-ink)]/80 italic mt-2 px-4">
+          Y si quieres ayudarnos con una contribución y ahorrarte el sobre, a continuación te
+          dejamos nuestro número de cuenta bancaria:
+        </p>
+
+        {/* —— Cuenta 1 —— */}
+        <div className="max-w-[820px] mx-auto mt-8 px-4">
+          <div className="text-center">
+            <p className="font-hand text-[var(--color-brand)] leading-none text-[70px]">
+              Cuenta de banco
+            </p>
+            <p className="mt-2 text-[var(--color-brand)] font-quicksand font-medium text-[20px] leading-none">
+              Mirely Escobar
+            </p>
+            <p className="text-[var(--color-ink)]/70 italic -mt-1">
+              Banco Cuscatlán
+            </p>
+          </div>
+
+          <div
+            className="mt-4 flex items-center gap-2 rounded-2xl bg-white border border-black/10
+                      shadow-[0_12px_30px_rgba(0,0,0,.08)] px-4 py-3 sm:px-5 sm:py-3.5"
+          >
+            <code className="flex-1 text-center font-medium tracking-wide text-[clamp(16px,4.5vw,22px)] text-[var(--color-ink)]">
+              404495000474308
+            </code>
+
+            <button
+              type="button"
+              onClick={() => copyToClipboard("404495000474308", setCopied1)}
+              className="shrink-0 inline-flex items-center gap-1 rounded-full px-3 py-1.5
+                        bg-[var(--color-brand)] text-white text-sm
+                        shadow-[0_8px_18px_rgba(0,0,0,.14)] hover:opacity-95 active:scale-95 transition"
+              aria-label="Copiar número de cuenta"
+            >
+              <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="9" y="9" width="10" height="10" rx="2" />
+                <path d="M5 15V7a2 2 0 0 1 2-2h8" />
+              </svg>
+              {copied1 ? "Copiado" : "Copiar"}
+            </button>
+          </div>
+        </div>
+
+        {/* —— Cuenta 2 —— */}
+        <div className="max-w-[820px] mx-auto mt-10 px-4">
+          <div className="text-center">
+            <p className="mt-2 text-[var(--color-brand)] font-quicksand font-medium text-[20px] leading-none">
+              Ángel Guerrero
+            </p>
+            <p className="text-[var(--color-ink)]/70 italic -mt-1">
+              Banco Agrícola
+            </p>
+          </div>
+
+          <div
+            className="mt-4 flex items-center gap-2 rounded-2xl bg-white border border-black/10
+                      shadow-[0_12px_30px_rgba(0,0,0,.08)] px-4 py-3 sm:px-5 sm:py-3.5"
+          >
+            <code className="flex-1 text-center font-medium tracking-wide text-[clamp(16px,4.5vw,22px)] text-[var(--color-ink)]">
+              3760710098
+            </code>
+
+            <button
+              type="button"
+              onClick={() => copyToClipboard("3760710098", setCopied2)}
+              className="shrink-0 inline-flex items-center gap-1 rounded-full px-3 py-1.5
+                        bg-[var(--color-brand)] text-white text-sm
+                        shadow-[0_8px_18px_rgba(0,0,0,.14)] hover:opacity-95 active:scale-95 transition z-10"
+              aria-label="Copiar número de cuenta"
+            >
+              <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="9" y="9" width="10" height="10" rx="2" />
+                <path d="M5 15V7a2 2 0 0 1 2-2h8" />
+              </svg>
+              {copied2 ? "Copiado" : "Copiar"}
+            </button>
+          </div>
+        </div>
       </section>
+
 
 
       {/* ====================== NO NIÑOS ====================== */}
@@ -486,7 +588,7 @@ export default function Invite({
         <p className="text-center font-quicksand font-medium text-[var(--color-ink)]/70 italic -mt-1">
           Su presencia hará más especial este día.
         </p>
-        <br/>
+        <br />
         <p className="text-center font-quicksand font-medium text-[var(--color-ink)]/60 text-sm">
           Les agradeceremos confirmar su asistencia antes del
         </p>
