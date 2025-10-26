@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Gate from "./components/Gate.jsx";
 import Invite from "./components/Invite.jsx";
+import MusicButton from "./components/MusicButton.jsx";
+
 
 export default function App() {
   const [showGate, setShowGate] = useState(true);
@@ -14,7 +16,7 @@ export default function App() {
   }, [showGate]);
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-ink)]">
+    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-ink)] bg-watercolor">
       {/* Gate (pantalla inicial) */}
       <AnimatePresence mode="wait">
         {showGate && (
@@ -35,6 +37,10 @@ export default function App() {
             <Invite
               defaultAllowed={2}
               scriptUrl={import.meta.env.VITE_APPS_SCRIPT_URL}
+            />
+            <MusicButton
+              src="/audio/cancion.mp3"
+              initiallyPlaying={false} 
             />
           </motion.div>
         )}

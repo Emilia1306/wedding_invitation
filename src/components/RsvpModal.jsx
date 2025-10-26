@@ -1,7 +1,14 @@
-// RsvpModal.jsx
 import { useEffect, useRef, useState } from "react";
 
-export default function RsvpModal({ open, onClose, allowed = 2, token = null, endpoint = "" }) {
+export default function RsvpModal({
+  open,
+  onClose,
+  allowed = 2,
+  token = null,
+  endpoint = "",
+  // NUEVO: callback que el padre (Invite) ejecuta cuando el envío fue OK
+  onSuccess,
+}) {
   const dialogRef = useRef(null);
   const [attending, setAttending] = useState("si");
   const [name, setName] = useState("");
@@ -11,7 +18,7 @@ export default function RsvpModal({ open, onClose, allowed = 2, token = null, en
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState(null); // null | "ok" | "error"
 
-  // Focus al abrir / cerrar con ESC
+
   useEffect(() => {
     function onKey(e) { if (e.key === "Escape" && open) onClose?.(); }
     document.addEventListener("keydown", onKey);
@@ -27,45 +34,47 @@ export default function RsvpModal({ open, onClose, allowed = 2, token = null, en
     if (!endpoint) { setStatus("error"); return; }
     setSending(true);
     try {
-        const body = new URLSearchParams();
-        body.set("token", token || "");
-        body.set("name", name);
-        body.set("phone", phone);
-        body.set("attending", attending === "si" ? "true" : "false");
-        body.set("guests", String(attending === "si" ? guests : 0));
-        body.set("note", note);
 
-        const res = await fetch(endpoint, {
-        method: "POST",
-        body,              // <— nada de headers personalizados
-        mode: "cors"
-        });
+      const body = new URLSearchParams();
+      body.set("token", token || "");
+      body.set("name", name);
+      body.set("phone", phone);
+      body.set("attending", attending === "si" ? "true" : "false");
+      body.set("guests", String(attending === "si" ? guests : 0));
+      body.set("note", note);
 
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && data.ok) {
+      const res = await fetch(endpoint, { method: "POST", body, mode: "cors" });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.ok) {
         setStatus("ok");
-        setTimeout(() => onClose?.(), 1000);
-        } else {
+        setTimeout(() => {
+          onClose?.();
+          setTimeout(() => {
+            onSuccess?.({
+              attending: attending === "si",
+              people: attending === "si" ? guests : 0,
+              name,
+            });
+          }, 250);
+        }, 150);
+      } else {
         setStatus("error");
-        }
+      }
     } catch (err) {
-        console.error(err);
-        setStatus("error");
+      console.error(err);
+      setStatus("error");
     } finally {
-        setSending(false);
+      setSending(false);
     }
   }
 
-
   return (
-    <div
-      role="dialog" aria-modal="true"
-      className="fixed inset-0 z-[999] flex items-center justify-center"
-    >
-      {/* backdrop */}
+    <div role="dialog" aria-modal="true" className="fixed inset-0 z-[999] flex items-center justify-center">
+      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
-      {/* sheet */}
+      {/* Sheet */}
       <div
         ref={dialogRef}
         className="relative z-10 w-[92%] max-w-[520px] rounded-2xl bg-[var(--color-bg)] shadow-[0_30px_80px_rgba(0,0,0,.25)] p-5 sm:p-6"
@@ -167,7 +176,6 @@ export default function RsvpModal({ open, onClose, allowed = 2, token = null, en
           </div>
         </form>
 
-        {/* Pista del límite visible para el invitado */}
         <p className="mt-2 text-xs text-[var(--color-ink)]/60">
           Esta invitación permite hasta <strong>{allowed}</strong> persona(s).
         </p>

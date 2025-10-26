@@ -46,7 +46,7 @@ export default function Gate({ onContinue }) {
             if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
           }}
         />
-        <p className="text-md italic text-[var(--color-ink)]/70">
+        <p className="text-md font-sans italic text-[var(--color-ink)]/70">
           Toca la imagen para continuar
         </p>
       </div>

@@ -26,6 +26,9 @@
 
   /* Si quieres que font-hand ahora apunte a una de estas: */
   --font-hand: "Bergstena Script", cursive;
+  --font-quicksand: "Quicksand", system-ui, -apple-system, "Segoe UI",
+                    Roboto, "Helvetica Neue", Arial, "Noto Sans",
+                    "Liberation Sans", sans-serif;
 }
 
 :root{
@@ -34,6 +37,19 @@
   --color-brand:#7a3e2e;
   --shadow-soft:0 10px 30px rgba(0,0,0,.08);
 }
+
+/* Fondo acuarela centrado y repetido verticalmente */
+.bg-watercolor {
+  /* ruta desde /public */
+  background-image: url("/img/fondo.jpg");
+  background-repeat: repeat-y;      /* SOLO vertical */
+  background-position: top center;  /* centrado */
+  /* Ancho responsivo del motivo: ocupa la “franja” central */
+  background-size: clamp(640px, 90vw, 1200px) auto;
+  /* (opcional) suaviza el scroll en móviles con blur/backdrop */
+  background-attachment: scroll;
+}
+
 
 html, body, #root {
   height: 100%;

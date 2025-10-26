@@ -4,6 +4,7 @@ export default {
     extend: {
       fontFamily: {
         hand: ['"Tangerine"', 'cursive'],
+        quicksans: ['"Quicksand"', 'system-ui', 'sans-serif'],
       },
     },
   },
