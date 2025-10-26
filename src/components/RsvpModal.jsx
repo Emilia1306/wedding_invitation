@@ -27,32 +27,35 @@ export default function RsvpModal({ open, onClose, allowed = 2, token = null, en
     if (!endpoint) { setStatus("error"); return; }
     setSending(true);
     try {
-      const payload = {
-        token,                         // para identificar la invitación
-        name,
-        phone,
-        attending: attending === "si",
-        guests: attending === "si" ? guests : 0,
-        note,
-      };
+        const body = new URLSearchParams();
+        body.set("token", token || "");
+        body.set("name", name);
+        body.set("phone", phone);
+        body.set("attending", attending === "si" ? "true" : "false");
+        body.set("guests", String(attending === "si" ? guests : 0));
+        body.set("note", note);
 
-      const res = await fetch(endpoint, {
+        const res = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body,              // <— nada de headers personalizados
         mode: "cors"
-      });
+        });
 
-      if (!res.ok) throw new Error("Respuesta no OK");
-      setStatus("ok");
-      setTimeout(() => onClose?.(), 1000);
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+        setStatus("ok");
+        setTimeout(() => onClose?.(), 1000);
+        } else {
+        setStatus("error");
+        }
     } catch (err) {
-      console.error(err);
-      setStatus("error");
+        console.error(err);
+        setStatus("error");
     } finally {
-      setSending(false);
+        setSending(false);
     }
   }
+
 
   return (
     <div
