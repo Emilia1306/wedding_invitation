@@ -26,7 +26,7 @@ export default function Gate({ onContinue }) {
     >
       <div className="flex flex-col items-center gap-3 px-4 text-center">
         <motion.img
-          src="/img/sobre_katie.svg"
+          src="/img/sobre_katie.png"
           alt="Abrir invitación"
           className="
             block
