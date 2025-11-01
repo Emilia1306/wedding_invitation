@@ -16,8 +16,8 @@ export default function Gate({ onContinue }) {
       // Overlay FULL, centrado con grid
       className="
         fixed top-0 left-0 z-[9999]
-        w-screen h-[100svh]               /* ancho/alto explícitos */
-        grid place-items-center            /* centro EXACTO */
+        w-screen h-[100svh]             
+        grid place-items-center           
         bg-[var(--color-bg)]
       "
       initial={{ opacity: 1 }}
@@ -30,8 +30,8 @@ export default function Gate({ onContinue }) {
           alt="Abrir invitación"
           className="
             block
-            w-[min(60vw,480px)]     /* ← tamaño del sobre (ajústalo) */
-            max-h-[55svh]           /* no ocupa más del 55% del alto visible */
+            w-[min(60vw,480px)]     
+            max-h-[55svh]          
             h-auto
             select-none cursor-pointer
             drop-shadow-[0_10px_24px_rgba(0,0,0,.10)]

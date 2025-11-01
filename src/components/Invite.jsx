@@ -10,9 +10,8 @@ const fadeIn = {
 };
 
 export default function Invite({
-  // opcionales por props
-  defaultAllowed = 2,       // pases por defecto
-  scriptUrl = ""            // URL de Apps Script
+  defaultAllowed = 2,      
+  scriptUrl = ""          
 }) {
   const [rsvpOpen, setRsvpOpen] = useState(false);
 
@@ -21,19 +20,14 @@ export default function Invite({
   const [toastMsg, setToastMsg] = useState("");
   const [toastVariant, setToastVariant] = useState("success");
 
-  // —— Añadir ESTO ——
-
-  // flags para mostrar “Copiado”
   const [copied1, setCopied1] = useState(false);
   const [copied2, setCopied2] = useState(false);
 
-  // copiar al portapapeles (con fallback)
   async function copyToClipboard(text, setFlag) {
     try {
       if (navigator?.clipboard?.writeText) {
         await navigator.clipboard.writeText(String(text));
       } else {
-        // fallback muy básico
         const ta = document.createElement("textarea");
         ta.value = String(text);
         document.body.appendChild(ta);
@@ -49,8 +43,6 @@ export default function Invite({
     }
   }
 
-
-  // Lee parámetros de la URL:  ?i=TOKEN&pases=2
   const { token, allowedFromUrl } = useMemo(() => {
     const sp = new URLSearchParams(window.location.search);
     return {
@@ -61,7 +53,6 @@ export default function Invite({
 
   const allowed = allowedFromUrl ?? defaultAllowed;
 
-  // === reemplaza solo este CenterToast en Invite.jsx ===
   const CenterToast = ({ open, children }) => {
     if (!open) return null;
 
@@ -70,17 +61,16 @@ export default function Invite({
         aria-live="polite"
         className="fixed inset-0 z-[1000] flex items-center justify-center"
       >
-        {/* Backdrop suave con blur para resaltar el toast */}
         <div className="absolute inset-0 bg-black/35 backdrop-blur-sm" />
 
-        {/* Tarjeta BEIGE (sin marco oscuro) */}
+        {/* Tarjeta */}
         <div
           className="relative max-w-[92%] sm:max-w-[640px] w-auto
                     rounded-2xl bg-[var(--color-bg)]/98
                     shadow-[0_25px_60px_rgba(0,0,0,.18)]
                     border border-black/5 overflow-hidden px-6 sm:px-8 py-7 sm:py-9 text-center"
         >
-          {/* Flor centrada arriba (flor1.png) */}
+          {/* Flor centrada arriba */}
           <img
             src="/img/flor1.png"
             alt=""
@@ -88,7 +78,7 @@ export default function Invite({
             className="mx-auto w-12 sm:w-14 opacity-90 -mt-2 mb-4 pointer-events-none select-none"
           />
 
-          {/* Mensaje (lo que envías desde onSuccess) */}
+          {/* Mensaje */}
           <p className="text-[clamp(16px,4.5vw,20px)] text-[var(--color-ink)]/90">
             {children}
           </p>
@@ -637,8 +627,8 @@ export default function Invite({
         endpoint={scriptUrl}
         onSuccess={({ name, people }) => {
           setRsvpOpen(false);
-          setToastVariant("success"); // o "error" si quisieras mostrar uno de error
-          const qty = Number.isFinite(people) ? people : 0;   // defensa
+          setToastVariant("success");
+          const qty = Number.isFinite(people) ? people : 0; 
           setToastMsg(`¡Gracias, ${name || "invitado(a)"}! Registramos tu confirmación para ${qty} persona(s).`);
           setToastOpen(true);
           setTimeout(() => setToastOpen(false), 3000);
