@@ -128,7 +128,7 @@ export default function Invite({
         <div className="text-center mx-auto w-[95%] sm:w-[82%] md:w-[65%] mt-2 flex justify-center">
           <motion.img
             {...fadeIn}
-            src="/img/sobre_katie.png"
+            src="/img/sobre_katie.svg"
             alt="sobre"
             className="block sm:w-[82%] md:w-[90%] mt-2 drop-shadow-[0_20px_40px_rgba(0,0,0,.10)]"
             loading="eager"
