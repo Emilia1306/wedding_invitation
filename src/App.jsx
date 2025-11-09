@@ -18,7 +18,9 @@ function preload(src) {
 export default function App() {
   const [showGate, setShowGate] = useState(true);
   const [loadingInvite, setLoadingInvite] = useState(false);
-  const [hasBg, setHasBg] = useState(false); // control del fondo
+  const [hasBg, setHasBg] = useState(false); 
+  const FALLBACK_RSVP_URL ="https://script.google.com/macros/s/AKfycbw-rZ35Nz3MCVXOqsVHcNE2PpeO1w1y6BKH5K0ev2xJvbzs4s4gFGs7GFDIIxWkDzU-rA/exec";
+  const scriptUrl = import.meta.env.VITE_SCRIPT_URL || FALLBACK_RSVP_URL;
 
   useEffect(() => {
     document.body.style.overflow = showGate ? "hidden" : "";
@@ -91,15 +93,14 @@ export default function App() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Invite scriptUrl={import.meta.env.VITE_SCRIPT_URL} />
+            <Invite scriptUrl={scriptUrl} />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Botón de música: visible desde que no hay Gate (aunque esté cargando, el preloader lo tapa) */}
       {!showGate && (
         <MusicButton
-          src="/audio/cancion.mp3"   // cambia a tu ruta
+          src="/audio/cancion.mp3"
           volume={0.7}
           show={true}
         />
