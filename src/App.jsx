@@ -21,6 +21,7 @@ export default function App() {
   const [hasBg, setHasBg] = useState(false); 
   const FALLBACK_RSVP_URL ="https://script.google.com/macros/s/AKfycbw-rZ35Nz3MCVXOqsVHcNE2PpeO1w1y6BKH5K0ev2xJvbzs4s4gFGs7GFDIIxWkDzU-rA/exec";
   const scriptUrl = import.meta.env.VITE_SCRIPT_URL || FALLBACK_RSVP_URL;
+  console.log("SCRIPT URL (Invite) =>", scriptUrl);
 
   useEffect(() => {
     document.body.style.overflow = showGate ? "hidden" : "";
