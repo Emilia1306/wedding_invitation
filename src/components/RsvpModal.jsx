@@ -13,7 +13,7 @@ export default function RsvpModal({
   const [attending, setAttending] = useState("si");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [guests, setGuests] = useState(1);
+  const [guests, setGuests] = useState(0);
   const [note, setNote] = useState("");
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState(null); // null | "ok" | "error"
